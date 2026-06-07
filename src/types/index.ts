@@ -61,7 +61,7 @@ export interface Article {
   tags?: Tag[]
 }
 
-export interface ArticleWithRelations extends Article {
+export interface ArticleWithRelations extends Omit<Article, 'category'> {
   author: Profile
   category: Category | null
   tags: Tag[]
