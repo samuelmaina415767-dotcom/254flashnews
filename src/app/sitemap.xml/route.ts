@@ -27,7 +27,7 @@ export async function GET() {
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>`).join('')}
-  ${articles.data.map((article) => `
+  ${(articles || []).map((article) => `
   <url>
     <loc>${siteUrl}/article/${article.slug}</loc>
     <lastmod>${article.updated_at?.split('T')[0]}</lastmod>
