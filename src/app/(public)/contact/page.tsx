@@ -38,14 +38,14 @@ export default function ContactPage() {
           Get in Touch
         </h1>
         <p className="text-ink-600 dark:text-ink-400 text-lg">
-          Have a story tip, correction, or want to collaborate? We'd love to hear from you.
+          Have a story tip, correction, or want to collaborate? Reach out to Samuel Maina directly.
         </p>
       </header>
 
       <div className="grid md:grid-cols-3 gap-4 mb-10">
         {[
-          { icon: Mail, title: 'Email', value: 'editor@yoursite.com', href: 'mailto:editor@yoursite.com' },
-          { icon: MessageSquare, title: 'Story Tips', value: 'tips@yoursite.com', href: 'mailto:tips@yoursite.com' },
+          { icon: Mail, title: 'Email', value: '254Flashnews@gmail.com', href: 'mailto:254Flashnews@gmail.com' },
+          { icon: MessageSquare, title: 'Story Tips', value: '254Flashnews@gmail.com', href: 'mailto:254Flashnews@gmail.com' },
         ].map(({ icon: Icon, title, value, href }) => (
           <a key={title} href={href} className="flex items-center gap-3 p-4 bg-ink-50 dark:bg-ink-900 rounded-xl border border-ink-200 dark:border-ink-800 hover:border-accent transition-colors">
             <div className="p-2 bg-accent/10 rounded-lg">
@@ -63,18 +63,18 @@ export default function ContactPage() {
         <div className="text-center py-16 bg-green-50 dark:bg-green-950/20 rounded-2xl border border-green-200 dark:border-green-900">
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
           <h2 className="font-serif text-2xl font-bold text-ink-900 dark:text-ink-100 mb-2">Message Sent!</h2>
-          <p className="text-ink-600 dark:text-ink-400">Thank you for reaching out. We'll get back to you within 24–48 hours.</p>
+          <p className="text-ink-600 dark:text-ink-400">Thank you for reaching out. Samuel will get back to you within 24–48 hours.</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5 bg-white dark:bg-ink-900 p-8 rounded-2xl border border-ink-200 dark:border-ink-800 shadow-sm">
           <div className="grid md:grid-cols-2 gap-5">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-ink-700 dark:text-ink-300 mb-1.5">Full Name *</label>
-              <input id="name" name="name" required className="form-input" placeholder="Jane Smith" />
+              <input id="name" name="name" required className="form-input" placeholder="Your Name" />
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-ink-700 dark:text-ink-300 mb-1.5">Email Address *</label>
-              <input id="email" name="email" type="email" required className="form-input" placeholder="jane@example.com" />
+              <input id="email" name="email" type="email" required className="form-input" placeholder="your@email.com" />
             </div>
           </div>
           <div>
