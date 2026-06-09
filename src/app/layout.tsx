@@ -22,9 +22,9 @@ const jetbrains = JetBrains_Mono({
   display: 'swap',
 })
 
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'The Chronicle'
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || '254 Flash News'
 const siteDescription = process.env.NEXT_PUBLIC_SITE_DESCRIPTION || 'Breaking news and in-depth features'
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://localhost:3000'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://254flashnews.online'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
     template: `%s | ${siteName}`,
   },
   description: siteDescription,
-  keywords: ['news', 'journalism', 'features', 'opinion', 'breaking news'],
-  authors: [{ name: siteName }],
-  creator: siteName,
+  keywords: ['news', 'Kenya', '254', 'breaking news', 'journalism', 'Nairobi'],
+  authors: [{ name: 'Samuel Maina' }],
+  creator: 'Samuel Maina',
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -54,6 +54,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 },
+  },
+  verification: {
+    google: 'zgSChTJupTCQq1LikSfrC2UzQv5ZaLXr80f4Vnd6Zr4',
   },
   manifest: '/manifest.json',
   icons: {
