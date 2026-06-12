@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { ViewTracker } from '@/components/article/ViewTracker'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
@@ -63,6 +64,7 @@ export default async function ArticlePage({ params }: Props) {
 
   return (
     <article className="max-w-7xl mx-auto px-4 py-8">
+      <ViewTracker articleId={article.id} />
 
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-xs text-ink-500 mb-6">
