@@ -1,3 +1,4 @@
+import { SocialShare } from '@/components/article/SocialShare'
 import { notFound } from 'next/navigation'
 import { ViewTracker } from '@/components/article/ViewTracker'
 import Image from 'next/image'
@@ -64,6 +65,7 @@ export default async function ArticlePage({ params }: Props) {
   return (
     <article className="max-w-7xl mx-auto px-4 py-8">
       <ViewTracker articleId={article.id} />
+      <SocialShare url={articleUrl} title={article.title} label="Share this story:" />
 
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-xs text-ink-500 mb-6">
