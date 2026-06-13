@@ -20,9 +20,10 @@ export function SocialShare({ url, title, label }: Props) {
 
   return (
     <div className="space-y-3">
-      {label && <p className="text-sm font-semibold text-ink-700 dark:text-ink-300">{label}</p>}
+      {label && (
+        <p className="text-sm font-semibold text-ink-700 dark:text-ink-300">{label}</p>
+      )}
 
-      {/* WhatsApp - BIG and prominent */}
       
         href={`https://wa.me/?text=${encodedTitle}%20${encoded}`}
         target="_blank"
@@ -33,7 +34,6 @@ export function SocialShare({ url, title, label }: Props) {
         Share on WhatsApp
       </a>
 
-      {/* Other share buttons */}
       <div className="flex items-center gap-2 flex-wrap">
         
           href={`https://www.facebook.com/sharer/sharer.php?u=${encoded}`}
