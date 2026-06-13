@@ -7,7 +7,6 @@ import { Clock, Eye, Calendar, ChevronLeft, ChevronRight } from 'lucide-react'
 import { getArticleBySlug, getRelatedArticles, getPrevNextArticles } from '@/lib/articles'
 import { formatDate, getSiteUrl } from '@/lib/utils'
 import { ArticleCard } from '@/components/article/ArticleCard'
-import { SocialShare } from '@/components/article/SocialShare'
 import { AuthorCard } from '@/components/article/AuthorCard'
 import { NewsletterForm } from '@/components/shared/NewsletterForm'
 
@@ -177,8 +176,6 @@ export default async function ArticlePage({ params }: Props) {
           )}
 
           {/* Social share top */}
-          <SocialShare url={articleUrl} title={article.title} />
-
           {/* Article body */}
           <div
             className="article-content mt-8"
@@ -203,7 +200,6 @@ export default async function ArticlePage({ params }: Props) {
 
           {/* Social share bottom */}
           <div className="mt-8">
-            <SocialShare url={articleUrl} title={article.title} label="Share this article" />
           </div>
 
           {/* Author card */}
