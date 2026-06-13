@@ -146,12 +146,6 @@ export default async function ArticlePage({ params }: Props) {
                     {article.reading_time} min read
                   </span>
                 )}
-                {article.view_count > 0 && (
-                  <span className="flex items-center gap-1.5">
-                    <Eye className="w-3.5 h-3.5" />
-                    {article.view_count.toLocaleString()} views
-                  </span>
-                )}
               </div>
             </div>
           </header>
