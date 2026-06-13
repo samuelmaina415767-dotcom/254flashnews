@@ -209,12 +209,6 @@ export function ArticleCard({ article, variant = 'default', className }: Article
                 {article.reading_time}m
               </span>
             )}
-            {article.view_count > 0 && (
-              <span className="flex items-center gap-1">
-                <Eye className="w-3 h-3" />
-                {article.view_count.toLocaleString()}
-              </span>
-            )}
           </div>
         </div>
       </div>
