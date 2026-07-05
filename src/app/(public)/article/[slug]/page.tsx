@@ -264,14 +264,17 @@ export default async function ArticlePage({ params }: Props) {
           <div className="bg-ink-900 rounded-xl p-6 text-white">
             <h3 className="font-serif text-xl font-bold mb-2">Get the Newsletter</h3>
             <p className="text-ink-400 text-sm mb-4">Daily briefings, straight to your inbox.</p>
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-3">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="w-full px-3 py-2.5 rounded-lg bg-ink-800 border border-ink-700 text-white placeholder-ink-500 focus:outline-none focus:border-accent text-sm"
-              />
-              <button className="btn-primary w-full justify-center py-2.5">Subscribe</button>
-            </form>
+            <form action="/api/newsletter" method="POST" className="space-y-3">
+  <input
+    type="email"
+    name="email"
+    placeholder="your@email.com"
+    className="w-full px-3 py-2.5 rounded-lg bg-ink-800 border border-ink-700 text-white placeholder-ink-500 focus:outline-none focus:border-accent text-sm"
+  />
+  <button type="submit" className="btn-primary w-full justify-center py-2.5">
+    Subscribe
+  </button>
+</form>
           </div>
         </aside>
       </div>
