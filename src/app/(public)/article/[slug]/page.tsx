@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: article.seo_title || article.title,
     description: article.seo_description || article.excerpt || '',
     keywords: article.meta_keywords || '',
-    authors: article.author ? [{ name: article.author.full_name }] : [],
+    alt={(article as any).guest_author_name || article.author?.full_name}
     openGraph: {
       title: article.seo_title || article.title,
       description: article.seo_description || article.excerpt || '',
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
       publishedTime: article.published_at || undefined,
       modifiedTime: article.updated_at,
-      authors: article.author ? [article.author.full_name] : [],
+      alt={(article as any).guest_author_name || article.author?.full_name}
       images: article.featured_image_url
         ? [{ url: article.featured_image_url, alt: article.title }]
         : [],
@@ -112,24 +112,24 @@ export default async function ArticlePage({ params }: Props) {
             <div className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t border-ink-200 dark:border-ink-800 text-sm text-ink-500">
               {article.author && (
                 <Link
-                  href={`/author/${article.author.full_name.toLowerCase().replace(/\s+/g, '-')}`}
+                  href={`/author/${alt={(article as any).guest_author_name || article.author?.full_name}.toLowerCase().replace(/\s+/g, '-')}`}
                   className="flex items-center gap-2.5 hover:text-accent transition-colors"
                 >
                   {article.author.avatar_url ? (
                     <Image
                       src={article.author.avatar_url}
-                      alt={article.author.full_name}
+                      alt={alt={(article as any).guest_author_name || article.author?.full_name}}
                       width={36}
                       height={36}
                       className="rounded-full object-cover"
                     />
                   ) : (
                     <div className="w-9 h-9 rounded-full bg-ink-200 dark:bg-ink-800 flex items-center justify-center text-xs font-bold text-ink-600 dark:text-ink-400">
-                      {article.author.full_name.charAt(0)}
+                      {alt={(article as any).guest_author_name || article.author?.full_name}.charAt(0)}
                     </div>
                   )}
                   <span className="font-semibold text-ink-800 dark:text-ink-200">
-                    {article.author.full_name}
+                    {alt={(article as any).guest_author_name || article.author?.full_name}}
                   </span>
                 </Link>
               )}

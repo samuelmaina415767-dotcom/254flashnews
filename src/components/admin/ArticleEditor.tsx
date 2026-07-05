@@ -49,6 +49,8 @@ export function ArticleEditor({ article, categories, tags, mode }: Props) {
     is_featured: article?.is_featured || false,
     is_breaking: article?.is_breaking || false,
     scheduled_at: article?.scheduled_at || '',
+    guest_author_name: (article as any)?.guest_author_name || '',
+guest_author_photo: (article as any)?.guest_author_photo || '',
   })
   const [selectedTags, setSelectedTags] = useState<string[]>(
     article?.tags?.map((t) => t.id) || []
@@ -457,6 +459,22 @@ export function ArticleEditor({ article, categories, tags, mode }: Props) {
             </div>
           </div>
 
+{/* Guest Author */}
+<div className="bg-white dark:bg-ink-900 rounded-xl border border-ink-200 dark:border-ink-800 p-5">
+  <h3 className="font-semibold text-ink-800 dark:text-ink-200 text-sm mb-3">
+    Author Name
+  </h3>
+  <input
+    type="text"
+    value={form.guest_author_name}
+    onChange={(e) => setForm((f) => ({ ...f, guest_author_name: e.target.value }))}
+    className="form-input text-sm"
+    placeholder="e.g. John Mwangi, Reuters, Correspondent"
+  />
+  <p className="text-xs text-ink-400 mt-2">
+    Leave blank to use your profile name
+  </p>
+</div>
           {/* Category */}
           <div className="bg-white dark:bg-ink-900 rounded-xl border border-ink-200 dark:border-ink-800 p-5">
             <h3 className="font-semibold text-ink-800 dark:text-ink-200 text-sm mb-3">Category</h3>

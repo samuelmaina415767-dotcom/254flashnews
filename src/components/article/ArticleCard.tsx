@@ -54,7 +54,9 @@ export function ArticleCard({ article, variant = 'default', className }: Article
             )}
             <div className="flex items-center gap-4 mt-4 text-ink-300 text-sm">
               {article.author && (
-                <span className="font-medium text-white">{article.author.full_name}</span>
+              <span className="font-medium text-ink-700 dark:text-ink-300">
+  {(article as any).guest_author_name || article.author?.full_name}
+</span>
               )}
               {article.published_at && (
                 <time>{formatDate(article.published_at, 'MMM d, yyyy')}</time>
@@ -193,7 +195,9 @@ export function ArticleCard({ article, variant = 'default', className }: Article
         <div className="flex items-center justify-between mt-auto pt-4 text-xs text-ink-500">
           <div className="flex items-center gap-2">
             {article.author && (
-              <span className="font-medium text-ink-700 dark:text-ink-300">{article.author.full_name}</span>
+            <span className="font-medium text-ink-700 dark:text-ink-300">
+  {(article as any).guest_author_name || article.author?.full_name}
+</span>
             )}
             {article.published_at && (
               <>
