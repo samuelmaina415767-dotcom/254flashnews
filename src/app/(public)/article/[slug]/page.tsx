@@ -4,12 +4,11 @@ import { ViewTracker } from '@/components/article/ViewTracker'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { Clock, Eye, Calendar, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Clock, Calendar, ChevronLeft, ChevronRight } from 'lucide-react'
 import { getArticleBySlug, getRelatedArticles, getPrevNextArticles } from '@/lib/articles'
 import { formatDate, getSiteUrl } from '@/lib/utils'
 import { ArticleCard } from '@/components/article/ArticleCard'
 import { AuthorCard } from '@/components/article/AuthorCard'
-import { NewsletterForm } from '@/components/shared/NewsletterForm'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -21,11 +20,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!article) return {}
 
   const url = `${getSiteUrl()}/article/${slug}`
+  const authorName = (article as any).guest_author_name || article.author?.full_name || ''
+
   return {
     title: article.seo_title || article.title,
     description: article.seo_description || article.excerpt || '',
     keywords: article.meta_keywords || '',
-    alt={(article as any).guest_author_name || article.author?.full_name}
+    authors: article.author ? [{ name: authorName }] : [],
     openGraph: {
       title: article.seo_title || article.title,
       description: article.seo_description || article.excerpt || '',
@@ -33,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
       publishedTime: article.published_at || undefined,
       modifiedTime: article.updated_at,
-      alt={(article as any).guest_author_name || article.author?.full_name}
+      authors: article.author ? [authorName] : [],
       images: article.featured_image_url
         ? [{ url: article.featured_image_url, alt: article.title }]
         : [],
@@ -61,11 +62,11 @@ export default async function ArticlePage({ params }: Props) {
   ])
 
   const articleUrl = `${getSiteUrl()}/article/${slug}`
+  const authorName = (article as any).guest_author_name || article.author?.full_name || 'Samuel Maina'
 
   return (
     <article className="max-w-7xl mx-auto px-4 py-8">
       <ViewTracker articleId={article.id} />
-      <SocialShare url={articleUrl} title={article.title} label="Share this story:" />
 
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-xs text-ink-500 mb-6">
@@ -83,10 +84,8 @@ export default async function ArticlePage({ params }: Props) {
       </nav>
 
       <div className="grid lg:grid-cols-3 gap-10">
-
         {/* Main content */}
         <div className="lg:col-span-2">
-
           {/* Article header */}
           <header className="mb-8">
             {article.is_breaking && (
@@ -111,27 +110,24 @@ export default async function ArticlePage({ params }: Props) {
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t border-ink-200 dark:border-ink-800 text-sm text-ink-500">
               {article.author && (
-                <Link
-                  href={`/author/${alt={(article as any).guest_author_name || article.author?.full_name}.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="flex items-center gap-2.5 hover:text-accent transition-colors"
-                >
+                <div className="flex items-center gap-2.5">
                   {article.author.avatar_url ? (
                     <Image
                       src={article.author.avatar_url}
-                      alt={alt={(article as any).guest_author_name || article.author?.full_name}}
+                      alt={authorName}
                       width={36}
                       height={36}
                       className="rounded-full object-cover"
                     />
                   ) : (
                     <div className="w-9 h-9 rounded-full bg-ink-200 dark:bg-ink-800 flex items-center justify-center text-xs font-bold text-ink-600 dark:text-ink-400">
-                      {alt={(article as any).guest_author_name || article.author?.full_name}.charAt(0)}
+                      {authorName.charAt(0)}
                     </div>
                   )}
                   <span className="font-semibold text-ink-800 dark:text-ink-200">
-                    {alt={(article as any).guest_author_name || article.author?.full_name}}
+                    {authorName}
                   </span>
-                </Link>
+                </div>
               )}
               <div className="flex items-center gap-4 text-xs text-ink-500">
                 {article.published_at && (
@@ -171,7 +167,9 @@ export default async function ArticlePage({ params }: Props) {
             </figure>
           )}
 
-          {/* Social share top */}
+          {/* Share top */}
+          <SocialShare url={articleUrl} title={article.title} label="Share this story:" />
+
           {/* Article body */}
           <div
             className="article-content mt-8"
@@ -186,7 +184,7 @@ export default async function ArticlePage({ params }: Props) {
                 <Link
                   key={tag.id}
                   href={`/search?tag=${tag.slug}`}
-                  className="px-3 py-1 bg-ink-100 dark:bg-ink-800 text-ink-700 dark:text-ink-300 rounded-full text-xs font-medium hover:bg-accent hover:text-white dark:hover:bg-accent transition-colors"
+                  className="px-3 py-1 bg-ink-100 dark:bg-ink-800 text-ink-700 dark:text-ink-300 rounded-full text-xs font-medium hover:bg-accent hover:text-white transition-colors"
                 >
                   #{tag.name}
                 </Link>
@@ -194,8 +192,12 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           )}
 
-          {/* Social share bottom */}
-          <div className="mt-8">
+          {/* Share bottom */}
+          <div className="mt-8 p-6 bg-ink-50 dark:bg-ink-900 rounded-xl border border-ink-200 dark:border-ink-800">
+            <p className="font-serif font-bold text-ink-900 dark:text-ink-100 mb-4">
+              Found this story useful? Share it!
+            </p>
+            <SocialShare url={articleUrl} title={article.title} />
           </div>
 
           {/* Author card */}
@@ -240,8 +242,6 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Sidebar */}
         <aside className="space-y-8">
-
-          {/* Related stories */}
           {related.length > 0 && (
             <div>
               <h3 className="font-serif text-lg font-bold text-ink-900 dark:text-ink-100 mb-4 pb-3 border-b-2 border-ink-900 dark:border-ink-100">
@@ -264,9 +264,15 @@ export default async function ArticlePage({ params }: Props) {
           <div className="bg-ink-900 rounded-xl p-6 text-white">
             <h3 className="font-serif text-xl font-bold mb-2">Get the Newsletter</h3>
             <p className="text-ink-400 text-sm mb-4">Daily briefings, straight to your inbox.</p>
-            <NewsletterForm />
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-3">
+              <input
+                type="email"
+                placeholder="your@email.com"
+                className="w-full px-3 py-2.5 rounded-lg bg-ink-800 border border-ink-700 text-white placeholder-ink-500 focus:outline-none focus:border-accent text-sm"
+              />
+              <button className="btn-primary w-full justify-center py-2.5">Subscribe</button>
+            </form>
           </div>
-
         </aside>
       </div>
 
@@ -283,7 +289,6 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </section>
       )}
-
     </article>
   )
 }
